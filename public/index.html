@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Undercover — PWA</title>
+    <meta name="theme-color" content="#111111" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='black'/%3E%3Cpath d='M20 60c10-10 50-10 60 0-8 18-22 28-30 28S28 78 20 60Z' fill='white'/%3E%3Ccircle cx='40' cy='45' r='6' fill='white'/%3E%3Ccircle cx='60' cy='45' r='6' fill='white'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body>
+    <noscript>This app needs JavaScript enabled.</noscript>
+    <div id="app">
+        <header class="app-header">
+            <h1>Undercover</h1>
+            <button id="installBtn" class="ghost" hidden>Install</button>
+        </header>
+
+
+        <main id="screen" class="screen">
+            <!-- Screens are rendered by index.js -->
+        </main>
+
+
+        <footer class="app-footer">
+            <a href="#" id="resetLink" class="resetLink">Reset</a>
+            <span class="dot" aria-hidden>•</span>
+            <span class="muted">Made By <a>theatom06</a></span>
+        </footer>
+    </div>
+
+
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>
