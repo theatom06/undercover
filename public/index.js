@@ -1,7 +1,7 @@
 const qs = (s, el = document) => el.querySelector(s);
 const qsa = (s, el = document) => [...el.querySelectorAll(s)];
 
-const WORD_PAIRS = [
+let WORD_PAIRS = [
     ["pencil", "pen"],
     ["coffee", "tea"],
     ["river", "lake"],
@@ -17,7 +17,7 @@ async function loadWordPairs() {
         const response = await fetch('./words.json');
         if (!response.ok) throw new Error('Network response was not ok');
         WORD_PAIRS = await response.json();
-        console.log('Word pairs loaded:', WORDlog_PAIRS);
+        console.log('Word pairs loaded:', WORD_PAIRS);
     } catch (err) {
         console.error('Failed to load word pairs:', err);
     }
@@ -87,7 +87,7 @@ function assignRoles() {
     for (let i = state.undercoverCount; i < state.undercoverCount + state.blankCount; i++)
         roles[i] = "blank";
 
-    shuffle(roles);
+    roles = shuffle(roles);
 
     state.players = state.players.map((name, i) => ({
         name,
@@ -307,17 +307,6 @@ function render() {
 }
 
 let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    const btn = qs('#installBtn');
-    btn.hidden = false;
-    btn.onclick = async () => {
-        btn.disabled = true;
-        await deferredPrompt.prompt();
-        deferredPrompt = null;
-    };
-});
 
 qs('#resetLink').addEventListener('click', (e) => {
     e.preventDefault();
