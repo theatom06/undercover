@@ -79,7 +79,7 @@ function assignRoles() {
     }
     pickWords();
 
-    const roles = Array(n).fill("civilian");
+    let roles = Array(n).fill("civilian");
 
     for (let i = 0; i < state.undercoverCount; i++)
         roles[i] = "undercover";
