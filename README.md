@@ -1,7 +1,7 @@
-# Game PWA
+# Undercover PWA
 
 ## Overview
-This project is a Progressive Web App (PWA) for a game that features a colorful design primarily using black and white colors with vibrant accents. The app is designed to provide a seamless user experience across various devices.
+This project is a Progressive Web App (PWA) for the Undercover game. The app is designed to provide a seamless user experience across various devices.
 
 ## Getting Started
 
