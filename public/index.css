@@ -183,6 +183,13 @@ label {
     color: var(--muted)
 }
 
+.info {
+    text-decoration: none;
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 600
+}
+
 .small {
     font-size: .9rem;
     color: var(--muted)
