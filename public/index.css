@@ -124,8 +124,8 @@ button,
     border: none;
     background: var(--ink);
     color: #000;
-    padding: 12px 14px;
-    border-radius: 14px;
+    padding: 10px 12px;
+    border-radius: 25px;
     font-weight: 600;
     cursor: pointer
 }

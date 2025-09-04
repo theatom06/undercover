@@ -8,8 +8,8 @@ const ASSETS = [
   './words.json'
 ];
 
-// 10 days in milliseconds
-const TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
+// 7 days in milliseconds
+const EXPIRY = 7 * 24 * 60 * 60 * 1000;
 
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
@@ -21,6 +21,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
+
     const keys = await caches.keys();
     await Promise.all(keys.map(k => k !== CACHE ? caches.delete(k) : null));
     self.clients.claim();
@@ -42,8 +43,8 @@ self.addEventListener('fetch', event => {
       const lastFetched = await cache.match(req.url + '?timestamp');
       if (lastFetched) {
         const lastTime = parseInt(await lastFetched.text(), 10);
-        if (now - lastTime > TEN_DAYS) {
-          // Fetch fresh if older than 10 days
+        if (now - lastTime > EXPIRY) {
+          // Fetch fresh if older than 7 days
           try {
             const networkResponse = await fetch(req);
             cache.put(req, networkResponse.clone());
