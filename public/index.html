@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#111111" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="icon"
-        href="./icons/android/android-launchericon-144-144.png" />
+        href="./icon.svg" />
     <link rel="stylesheet" href="./index.css" />
     <meta name="description" content="A simple, fun word game to play with friends." />
     <meta name="keywords" content="undercover, word game, pwa, progressive web app, multiplayer, game" />
@@ -19,14 +19,29 @@
     <meta property="og:description" content="A simple, fun word game to play with friends." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://undercover6.web.app" />
+
+    <script>
+        // Register service worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js');
+            });
+        }
+    </script>
 </head>
 
 <body>
     <noscript>This app needs JavaScript enabled.</noscript>
     <div id="app">
         <header class="app-header">
-            <h1>Undercover</h1>
-            <a href="https://github.com/theatom06/undercover" class="info">&#9432;</a>
+
+            <h1>
+                <img src="./icon.svg" alt="Undercover Icon" class="app-icon" width="32px" height="32px" />
+                Undercover
+            </h1>
+            <a href="https://github.com/theatom06/undercover" class="info">
+                <img src="./github.svg" alt="GitHub Repository" class="github-icon" width="32px" height="32px" />
+            </a>
         </header>
 
 

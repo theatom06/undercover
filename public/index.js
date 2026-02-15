@@ -147,7 +147,7 @@ function screenSetup() {
       </div>
     </div>
     <button id="startBtn" class="full">Start & Reveal</button>
-    <p class="small">Tip: Pass the phone. Each player taps <kbd>Reveal</kbd> to see their word privately.</p>
+    <p class="small center">Tip: Pass the phone. Each player taps <kbd>Reveal</kbd> to see their word privately.</p>
   `;
 
   el.querySelector('#addPlayer').onclick = () => {
@@ -261,35 +261,34 @@ function screenDiscuss() {
       <button class="ghost" data-i="${idx}">Vote</button>
     `;
 
-    item.querySelector('button').onclick = (e) => {
-      if (confirm(`Confirm eliminating ${p.name}?`)) {
-        alert(`${p.name} (${p.role}) is eliminated!`);
-        state.players = state.players.filter(w => w !== p);
+    item.querySelector('button').onclick = () => {
+      if (!confirm(`Confirm eliminating ${p.name}?`)) return;
 
-        const civs = state.players.filter(p => p.role === 'civilian').length;
-        const ucs = state.players.filter(p => p.role === 'undercover').length;
+      alert(`${p.name} (${p.role}) is eliminated!`);
 
-        if (ucs === 0) {
-          alert('Civilians win!');
-          resetAll();
-          return;
-        }
+      // remove player ONCE
+      state.players.splice(idx, 1);
 
-        if (ucs >= civs) {
-          alert('Undercovers win!');
-          resetAll();
-          return;
-        }
+      const civs = state.players.filter(p => p.role === 'civilian').length;
+      const ucs  = state.players.filter(p => p.role === 'undercover').length;
 
-        state.phase = 'discuss';
-
-        state.players.splice(idx, 1);
-        roster.removeChild(roster.children[idx]);
+      if (ucs === 0) {
+        alert('Civilians win!');
+        resetAll();
+        return;
       }
 
+      if (ucs >= civs) {
+        alert('Undercovers win!');
+        resetAll();
+        return;
+      }
+
+      // continue game
+      state.phase = 'discuss';
       save();
       render();
-    };
+  };
     roster.appendChild(item);
   });
 
@@ -314,12 +313,6 @@ qs('#resetLink').addEventListener('click', (e) => {
     resetAll();
   }
 });
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  });
-}
 
 load();
 render();

@@ -5,7 +5,9 @@ const ASSETS = [
   './index.css',
   './index.js',
   './manifest.json',
-  './words.json'
+  './words.json',
+  './github.svg',
+  './icon.svg',
 ];
 
 // 7 days in milliseconds
