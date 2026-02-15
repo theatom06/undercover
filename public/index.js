@@ -55,6 +55,29 @@ function shuffle(arr) {
   return arr;
 }
 
+qs('#rules').onclick = () => {
+  let overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="card rules">
+      <h2>How to Play</h2>
+      <ol style="padding-left:20px; margin-top:12px">
+        <li> <kbd>Setup</kbd>: Add player names, choose undercover/blank counts, and start.</li>
+        <li> <kbd>Reveal</kbd>: Each player privately sees their word and role.</li>
+        <li> <kbd>Discuss</kbd>: Players talk and try to identify undercovers.</li>
+        <li> <kbd>Vote</kbd>: Eliminate a suspect. Civilians win by eliminating all undercovers. Undercovers win if they equal or outnumber civilians.</li>
+      </ol>
+      <button id="closeRules" class="full">Close</button>
+    </div>
+  `;
+
+  overlay.querySelector('#closeRules').onclick = () => {
+    document.body.removeChild(overlay);
+  };
+
+  document.body.appendChild(overlay);
+};
+
 function pickWords() {
   const words = WORD_PAIRS[Math.floor(Math.random() * WORD_PAIRS.length)];
   const civilian = words[Math.random() < 0.5 ? 0 : 1];
@@ -119,6 +142,15 @@ function resetAll() {
 }
 
 function screenSetup() {
+  let tips = [
+    "First press the book icon on the top right to read the rules.",
+    "Pass the phone. Each player taps <kbd>Reveal</kbd> to see their word privately",
+    "Use nicknames or initials for simplicity.",
+    "Describe your word vaguely during discussion.",
+    "Civilians win by eliminating all undercovers. Undercovers win if they equal or outnumber civilians.",
+    "Have fun and be creative with clues!"
+  ];
+
   const el = document.createElement('div');
   el.className = 'card grid';
   el.innerHTML = `
@@ -147,8 +179,21 @@ function screenSetup() {
       </div>
     </div>
     <button id="startBtn" class="full">Start & Reveal</button>
-    <p class="small center">Tip: Pass the phone. Each player taps <kbd>Reveal</kbd> to see their word privately.</p>
+    <p class="small center" id="currentTip"></p>
   `;
+
+  const tipEl = el.querySelector('#currentTip');
+  let tipIndex = 0;
+
+  let showTip = () => {
+    tipEl.innerHTML = tips[tipIndex];
+    tipIndex = (tipIndex + 1) % tips.length;
+  }
+
+  showTip();
+
+  setInterval(showTip, 5000);
+  tipEl.onclick = showTip;
 
   el.querySelector('#addPlayer').onclick = () => {
     const name = qs('#playerName').value.trim();
